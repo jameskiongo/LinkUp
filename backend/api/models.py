@@ -9,7 +9,7 @@ class User(AbstractUser):
     """User Model"""
 
     email = models.EmailField(unique=True)
-    phone_no = models.CharField(max_length=10)
+    profile_pic = models.ImageField(upload_to="profile_pics", null="True")
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name", "phone_no", "email"]
 

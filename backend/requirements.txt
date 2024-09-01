@@ -7,3 +7,4 @@ djangorestframework==3.15.2
 psycopg2==2.9.9
 six==1.16.0
 sqlparse==0.5.1
+pillow
