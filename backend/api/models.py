@@ -11,7 +11,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     profile_pic = models.ImageField(upload_to="profile_pics", null="True")
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name", "phone_no", "email"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "phone_no"]
 
     def __str__(self):
         return self.email
@@ -21,6 +21,7 @@ class Event(models.Model):
     """Event Model"""
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    poster = models.ImageField(upload_to="poster_image/")
     title = models.CharField(max_length=255)
     description = models.TextField()
     location_name = models.CharField(max_length=255)
