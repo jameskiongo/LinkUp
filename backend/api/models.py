@@ -8,6 +8,7 @@ from django.utils import timezone
 class User(AbstractUser):
     """User Model"""
 
+    username = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(unique=True)
     profile_pic = models.ImageField(upload_to="profile_pics", null="True")
     USERNAME_FIELD = "email"
@@ -35,6 +36,9 @@ class Event(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+
+# {"email":"kiongo@mail.com", "first_name":"James", "last_name":"Kiongo", "password":"password"}
 
 
 class RSVP(models.Model):
