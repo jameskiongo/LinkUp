@@ -22,7 +22,7 @@ class Event(models.Model):
     """Event Model"""
 
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    poster = models.ImageField(upload_to="poster_image/")
+    poster = models.ImageField(upload_to="poster_image/", null=True, blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     location_name = models.CharField(max_length=255)

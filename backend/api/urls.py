@@ -11,6 +11,9 @@ urlpatterns = [
     path("login/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path("events/", views.AllEventsView.as_view(), name="events"),
+    # path("event/", views.UserEventView.as_view(), name="event"),
     path("event/", views.EventView.as_view(), name="event"),
-    path(r"social/github", views.GithubLogin.as_view(), name="github_login"),
+    # path("event/<int:pk>/", views.EditEventView.as_view(), name="event"),
+    path("event/<int:pk>/update/", views.EditEventView.as_view(), name="event"),
 ]

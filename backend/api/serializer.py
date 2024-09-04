@@ -1,7 +1,7 @@
 # from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 
-from .models import User
+from .models import Event, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -28,3 +28,11 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
+
+
+class EventSerializer(serializers.ModelSerializer):
+    creator = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = Event
+        fields = "__all__"
