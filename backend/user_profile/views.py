@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView  # ListCreateAPIView,
-from rest_framework.generics import RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny
 
 from .models import Profile
@@ -26,5 +26,5 @@ class UserProfileViewUser(RetrieveAPIView):
         return get_object_or_404(Profile, id=id)
 
 
-class UserProfileEditView(RetrieveUpdateDestroyAPIView):
+class UserProfileEditView(UpdateAPIView):
     pass

@@ -1,19 +1,32 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from .models import Profile
 
+User = get_user_model()
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            "email",
+            "first_name",
+            "last_name",
+        ]
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    username = serializers.ReadOnlyField(source="user.first_name" + "user.last_name")
+    user = UserSerializer()
 
     class Meta:
         model = Profile
         fields = [
             "id",
-            "username",
+            "user",
             "profile_pic",
         ]
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "user"]
 
         def update(self, instance, validated_data):
             user = self.context["request"].user
@@ -22,6 +35,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
                     {"detail": "You do not have permission to perform this action"}
                 )
             instance.avatar_url = validated_data.get("avatar_url", instance.avatar_url)
-            instance.bio = validated_data.get("bio", instance.bio)
             instance.save()
             return instance
