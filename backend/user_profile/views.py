@@ -1,9 +1,15 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView  # ListCreateAPIView,
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.generics import (
+    RetrieveAPIView,
+    RetrieveUpdateAPIView,
+    UpdateAPIView,
+)
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Profile
+from .permissions import IsOwner
 from .serializer import UserProfileSerializer
 
 
@@ -27,4 +33,10 @@ class UserProfileViewUser(RetrieveAPIView):
 
 
 class UserProfileEditView(UpdateAPIView):
-    pass
+    permission_classes = [IsOwner, IsAuthenticated]
+    serializer_class = UserProfileSerializer
+    queryset = Profile.objects.all()
+    authentication_classes = [JWTAuthentication]
+
+    def partial_update(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
