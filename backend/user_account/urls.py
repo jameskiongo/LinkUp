@@ -1,5 +1,6 @@
-from accounts.views import GoogleLogin, GoogleLoginCallback
 from django.urls import include, path
+
+from user_account.views import GoogleLogin, GoogleLoginCallback
 
 urlpatterns = [
     path("", include("dj_rest_auth.urls")),
